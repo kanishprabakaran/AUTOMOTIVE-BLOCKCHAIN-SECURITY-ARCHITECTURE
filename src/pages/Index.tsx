@@ -50,10 +50,10 @@ const Index = () => {
                 style={{ filter: "drop-shadow(0 0 10px hsl(189 100% 50% / 0.8))" }}
               />
             </motion.div>
-            <div>
+            {/* <div>
               <p className="font-orbitron text-sm text-primary font-bold tracking-wider">AUTOCHAIN</p>
               <p className="text-[9px] text-muted-foreground">SECURITY SYSTEMS</p>
-            </div>
+            </div> */}
           </motion.div>
 
           {/* Main Headline */}
