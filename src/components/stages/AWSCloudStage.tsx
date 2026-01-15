@@ -7,11 +7,11 @@ interface AWSCloudStageProps {
 
 export const AWSCloudStage = ({ delay = 0 }: AWSCloudStageProps) => {
   const services = [
-    { icon: Shield, name: "IoT Core", desc: "Device Gateway", position: "top" },
-    { icon: Server, name: "EC2", desc: "Processing Engine", position: "left" },
-    { icon: Key, name: "KMS", desc: "Key Management", position: "right" },
-    { icon: Database, name: "S3", desc: "Data Storage", position: "bottom-left" },
-    { icon: Bot, name: "SageMaker", desc: "ML Inference", position: "bottom-right" },
+    { icon: Shield, name: "IoT Core", desc: "Device Gateway" },
+    { icon: Server, name: "EC2", desc: "Processing" },
+    { icon: Key, name: "KMS", desc: "Encryption" },
+    { icon: Database, name: "S3", desc: "Storage" },
+    { icon: Bot, name: "SageMaker", desc: "ML Inference" },
   ];
 
   return (
@@ -21,9 +21,9 @@ export const AWSCloudStage = ({ delay = 0 }: AWSCloudStageProps) => {
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.8, delay }}
     >
-      {/* Cloud shape background */}
+      {/* Glow background */}
       <motion.div
-        className="absolute -inset-4 rounded-3xl"
+        className="absolute -inset-6 rounded-3xl"
         style={{
           background: "radial-gradient(ellipse at center, hsl(189 100% 50% / 0.08) 0%, transparent 70%)",
         }}
@@ -31,99 +31,105 @@ export const AWSCloudStage = ({ delay = 0 }: AWSCloudStageProps) => {
         transition={{ duration: 4, repeat: Infinity }}
       />
 
-      <div className="glass-card-cyan w-[280px] relative">
+      <div className="glass-card-cyan w-[240px] relative">
         {/* Header */}
-        <div className="flex items-center justify-center gap-2 mb-4">
-          <Cloud className="w-6 h-6 text-primary" />
-          <h3 className="font-orbitron text-sm text-primary font-bold tracking-wider">
+        <div className="flex items-center justify-center gap-2 mb-3">
+          <Cloud className="w-5 h-5 text-primary" />
+          <h3 className="font-orbitron text-xs text-primary font-bold tracking-wider">
             AWS CLOUD
           </h3>
         </div>
 
-        {/* Services grid */}
-        <div className="relative h-[180px]">
-          {/* Center connection lines */}
-          <svg className="absolute inset-0 w-full h-full" style={{ zIndex: 0 }}>
-            {/* IoT Core to EC2 */}
-            <motion.line
-              x1="50%" y1="25%" x2="25%" y2="50%"
-              stroke="hsl(189 100% 50% / 0.4)"
-              strokeWidth="1"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 1, delay: delay + 0.5 }}
-            />
-            {/* IoT Core to KMS */}
-            <motion.line
-              x1="50%" y1="25%" x2="75%" y2="50%"
-              stroke="hsl(189 100% 50% / 0.4)"
-              strokeWidth="1"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 1, delay: delay + 0.6 }}
-            />
-            {/* EC2 to KMS */}
-            <motion.line
-              x1="25%" y1="50%" x2="75%" y2="50%"
-              stroke="hsl(189 100% 50% / 0.4)"
-              strokeWidth="1"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 1, delay: delay + 0.7 }}
-            />
-            {/* EC2 to S3 */}
-            <motion.line
-              x1="25%" y1="50%" x2="30%" y2="85%"
-              stroke="hsl(189 100% 50% / 0.4)"
-              strokeWidth="1"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 1, delay: delay + 0.8 }}
-            />
-            {/* KMS to SageMaker */}
-            <motion.line
-              x1="75%" y1="50%" x2="70%" y2="85%"
-              stroke="hsl(189 100% 50% / 0.4)"
-              strokeWidth="1"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 1, delay: delay + 0.9 }}
-            />
-          </svg>
+        {/* Services - Clean Grid Layout */}
+        <div className="space-y-2">
+          {/* Top row - IoT Core centered */}
+          <div className="flex justify-center">
+            <ServiceBubble service={services[0]} index={0} delay={delay} />
+          </div>
 
-          {/* Service bubbles */}
-          {services.map((service, i) => {
-            const positions: Record<string, string> = {
-              "top": "top-0 left-1/2 -translate-x-1/2",
-              "left": "top-1/2 left-0 -translate-y-1/2",
-              "right": "top-1/2 right-0 -translate-y-1/2",
-              "bottom-left": "bottom-0 left-[15%]",
-              "bottom-right": "bottom-0 right-[15%]",
-            };
+          {/* Connection lines from IoT Core down */}
+          <div className="flex justify-center">
+            <motion.div
+              className="w-px h-3 bg-primary/40"
+              initial={{ scaleY: 0 }}
+              animate={{ scaleY: 1 }}
+              transition={{ delay: delay + 0.4 }}
+            />
+          </div>
 
-            return (
-              <motion.div
-                key={service.name}
-                className={`absolute ${positions[service.position]} z-10`}
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: delay + 0.3 + i * 0.1, type: "spring" }}
-              >
-                <motion.div
-                  className="flex flex-col items-center gap-1 p-2 rounded-lg bg-background/60 border border-primary/30 backdrop-blur-sm"
-                  animate={{ boxShadow: ["0 0 10px hsl(189 100% 50% / 0.2)", "0 0 20px hsl(189 100% 50% / 0.4)", "0 0 10px hsl(189 100% 50% / 0.2)"] }}
-                  transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
-                  whileHover={{ scale: 1.1 }}
-                >
-                  <service.icon className="w-5 h-5 text-primary" strokeWidth={1.5} />
-                  <span className="text-[9px] font-bold text-foreground">{service.name}</span>
-                  <span className="text-[7px] text-muted-foreground">{service.desc}</span>
-                </motion.div>
-              </motion.div>
-            );
-          })}
+          {/* Middle row - EC2, KMS */}
+          <div className="flex justify-center gap-6">
+            <ServiceBubble service={services[1]} index={1} delay={delay} />
+            <ServiceBubble service={services[2]} index={2} delay={delay} />
+          </div>
+
+          {/* Connection lines down */}
+          <div className="flex justify-center gap-16">
+            <motion.div
+              className="w-px h-3 bg-primary/40"
+              initial={{ scaleY: 0 }}
+              animate={{ scaleY: 1 }}
+              transition={{ delay: delay + 0.6 }}
+            />
+            <motion.div
+              className="w-px h-3 bg-primary/40"
+              initial={{ scaleY: 0 }}
+              animate={{ scaleY: 1 }}
+              transition={{ delay: delay + 0.6 }}
+            />
+          </div>
+
+          {/* Bottom row - S3, SageMaker */}
+          <div className="flex justify-center gap-6">
+            <ServiceBubble service={services[3]} index={3} delay={delay} />
+            <ServiceBubble service={services[4]} index={4} delay={delay} />
+          </div>
         </div>
+
+        {/* Horizontal connection line between EC2 and KMS */}
+        <motion.div
+          className="absolute top-[52%] left-1/2 -translate-x-1/2 w-12 h-px bg-primary/40"
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ delay: delay + 0.5 }}
+        />
       </div>
+    </motion.div>
+  );
+};
+
+interface ServiceBubbleProps {
+  service: { icon: React.ElementType; name: string; desc: string };
+  index: number;
+  delay: number;
+}
+
+const ServiceBubble = ({ service, index, delay }: ServiceBubbleProps) => {
+  const Icon = service.icon;
+  
+  return (
+    <motion.div
+      className="flex flex-col items-center gap-1 p-2 rounded-lg bg-background/60 border border-primary/30 backdrop-blur-sm min-w-[70px]"
+      initial={{ opacity: 0, scale: 0 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ delay: delay + 0.3 + index * 0.1, type: "spring" }}
+      whileHover={{ scale: 1.05, borderColor: "hsl(189 100% 50% / 0.6)" }}
+    >
+      <motion.div
+        animate={{
+          boxShadow: [
+            "0 0 8px hsl(189 100% 50% / 0.2)",
+            "0 0 16px hsl(189 100% 50% / 0.4)",
+            "0 0 8px hsl(189 100% 50% / 0.2)",
+          ],
+        }}
+        transition={{ duration: 2, repeat: Infinity, delay: index * 0.3 }}
+        className="rounded-full p-1"
+      >
+        <Icon className="w-4 h-4 text-primary" strokeWidth={1.5} />
+      </motion.div>
+      <span className="text-[9px] font-bold text-foreground">{service.name}</span>
+      <span className="text-[7px] text-muted-foreground">{service.desc}</span>
     </motion.div>
   );
 };
