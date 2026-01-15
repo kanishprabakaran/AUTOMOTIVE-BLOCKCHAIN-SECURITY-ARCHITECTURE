@@ -6,8 +6,8 @@ import { StatusIndicators } from "@/components/StatusIndicators";
 import { TechStackBadges } from "@/components/TechStackBadges";
 import { TechBadge } from "@/components/TechBadge";
 import { FullscreenToggle } from "@/components/FullscreenToggle";
-import { 
-  Lock, Key, Radio, Globe, Zap, Shield, RefreshCw, BarChart3, Hexagon
+import {
+  Lock, Key, Radio, Globe, Zap, Shield, RefreshCw, BarChart3
 } from "lucide-react";
 
 const Index = () => {
@@ -32,29 +32,7 @@ const Index = () => {
         
         {/* TOP SECTION - Header (12%) */}
         <header className="h-[12%] flex items-center justify-between px-6 lg:px-12">
-          {/* Logo */}
-          <motion.div
-            className="flex items-center gap-3"
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <motion.div
-              className="relative"
-              animate={{ rotate: [0, 360] }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            >
-              <Hexagon 
-                className="w-10 h-10 text-primary" 
-                strokeWidth={1.5}
-                style={{ filter: "drop-shadow(0 0 10px hsl(189 100% 50% / 0.8))" }}
-              />
-            </motion.div>
-            {/* <div>
-              <p className="font-orbitron text-sm text-primary font-bold tracking-wider">AUTOCHAIN</p>
-              <p className="text-[9px] text-muted-foreground">SECURITY SYSTEMS</p>
-            </div> */}
-          </motion.div>
+          <div />
 
           {/* Main Headline */}
           <motion.div
