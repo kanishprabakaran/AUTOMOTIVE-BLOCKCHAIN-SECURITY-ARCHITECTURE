@@ -106,20 +106,9 @@ const Index = () => {
             </p>
           </motion.div>
 
-          {/* Footer Text */}
-          <motion.div
-            className="text-right"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 2 }}
-          >
-            <p className="text-[10px] text-muted-foreground/60">
-              Powered by <span className="text-primary">AWS</span> | Secured by <span className="text-secondary">Blockchain</span>
-            </p>
-            <p className="text-[8px] text-muted-foreground/40 mt-1">
-              © 2024 AutoChain Security Systems
-            </p>
-          </motion.div>
+
+          <div />
+
         </footer>
       </div>
     </div>
